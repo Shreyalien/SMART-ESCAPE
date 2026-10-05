@@ -537,6 +537,11 @@ h2 {
   stroke-width: 3;
 }
 
+.graph-node.blocked.selectable:hover .node-shape {
+  stroke: #ff8585;
+  stroke-width: 2.8;
+}
+
 /* Selected Start Node */
 .graph-node.selected .node-shape {
   stroke: var(--accent);
@@ -716,8 +721,55 @@ h2 {
   font-family: var(--font-mono);
 }
 
+.route-cost.route-cost-na {
+  border-color: rgba(255, 107, 107, 0.25);
+  background: linear-gradient(135deg, rgba(255, 107, 107, 0.08), rgba(255, 107, 107, 0.02));
+  box-shadow: none;
+}
+
+.cost-na,
+.exit-dest-na {
+  display: block;
+  margin-top: 2px;
+  color: #ff8585 !important;
+  font-size: 18px !important;
+  font-family: var(--font-mono);
+  font-weight: 750;
+}
+
 .route-path-fact {
   grid-column: 1 / -1;
+}
+
+.route-error-fact {
+  border-color: rgba(255, 107, 107, 0.3) !important;
+  background: rgba(255, 75, 75, 0.05) !important;
+}
+
+.route-failure-content {
+  margin-top: 6px;
+}
+
+.route-error-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 800;
+  font-family: var(--font-mono);
+  letter-spacing: 0.04em;
+  border: 1px solid rgba(255, 107, 107, 0.35);
+  background: rgba(255, 75, 75, 0.12);
+  color: #ff9b9b;
+}
+
+.route-error-sub {
+  display: block;
+  margin-top: 6px;
+  color: var(--muted-2);
+  font-size: 11px;
+  line-height: 1.4;
 }
 
 .route-sequence-chips {

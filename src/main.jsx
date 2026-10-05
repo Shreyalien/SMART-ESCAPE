@@ -427,6 +427,9 @@ export function App() {
         setOriginalInitialState(cloneState(SAMPLE_BUILDING.initial_state));
         setCurrentState({ blocked_nodes: [], blocked_edges: [], closed_exits: ['E1', 'E2'] });
         setSelectedStart('R1');
+        setFileName('building.json (Sample)');
+        setSuccess(true);
+        setError(null);
         break;
       case 'startR2':
         loadSample('R2', []);
@@ -466,8 +469,9 @@ export function App() {
       setBuilding(data);
       setOriginalInitialState(cloneState(data.initial_state));
       setCurrentState(cloneState(data.initial_state));
-      const firstAvailable = data.nodes.find((n) => (n.type === 'room' || n.type === 'junction') && !data.initial_state.blocked_nodes.includes(n.id));
-      setSelectedStart(firstAvailable ? firstAvailable.id : data.nodes[0]?.id || '');
+      const firstAvailable = data.nodes.find((n) => (n.type === 'room' || n.type === 'junction') && !data.initial_state.blocked_nodes.includes(n.id))
+        || data.nodes.find((n) => n.type === 'room' || n.type === 'junction');
+      setSelectedStart(firstAvailable ? firstAvailable.id : '');
       setFileName(file.name);
       setSuccess(true);
     } catch (err) {
@@ -878,11 +882,34 @@ function RouteStatus({ t, result, selectedStart, building, playbackStep, isPlayi
           </div>
         </div>
       ) : (
-        <div className="route-empty route-state">
-          <div className="route-line" />
-          <div>
-            <strong>{state === 'blocked-start' ? t.blockedStart : t.noRoute}</strong>
-            <p>{state === 'blocked-start' ? t.blockedStartHint : t.noRouteHint}</p>
+        <div className="route-result-shell">
+          <div className="route-result">
+            <div className="route-fact">
+              <span>{t.starting}</span>
+              <strong>{startNode?.label || selectedStart} <em className="node-code-tag">[{selectedStart}]</em></strong>
+            </div>
+
+            <div className="route-fact">
+              <span>{t.destination}</span>
+              <strong className="exit-dest-na">N/A</strong>
+            </div>
+
+            <div className="route-cost route-cost-na">
+              <span>{t.totalCost}</span>
+              <strong className="cost-na">N/A</strong>
+            </div>
+
+            <div className="route-fact route-path-fact route-error-fact">
+              <span>{t.route}</span>
+              <div className="route-failure-content">
+                <span className={`route-error-badge ${state === 'blocked-start' ? 'blocked-badge' : 'no-route-badge'}`}>
+                  {state === 'blocked-start' ? t.blockedStart : t.noRoute}
+                </span>
+                <p className="route-error-sub">
+                  {state === 'blocked-start' ? t.blockedStartHint : t.noRouteHint}
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       )}
@@ -903,7 +930,7 @@ function BuildingGraph({ building, selectedStart, routeResult, playbackStep, onS
   const blockedEdges = new Set(building.initial_state.blocked_edges);
   const closedExits = new Set(building.initial_state.closed_exits);
   const routeEdges = routeResult?.status === 'route' ? routeResult.routeEdges : new Set();
-  const selectable = (node) => (node.type === 'room' || node.type === 'junction') && !blockedNodes.has(node.id);
+  const selectable = (node) => (node.type === 'room' || node.type === 'junction');
 
   // Walkthrough marker
   const activePath = routeResult?.status === 'route' ? routeResult.path : [];
@@ -975,7 +1002,7 @@ function BuildingGraph({ building, selectedStart, routeResult, playbackStep, onS
                 filter={blocked || closed ? undefined : 'url(#nodeGlow)'}
                 onClick={() => selectable(node) && onSelectStart(node.id)}
                 role={selectable(node) ? 'button' : undefined}
-                aria-label={selectable(node) ? `Select ${node.label} as starting location` : undefined}
+                aria-label={selectable(node) ? `Select ${node.label} (${node.id}) as starting location${blocked ? ' [Blocked]' : ''}` : undefined}
                 tabIndex={selectable(node) ? 0 : undefined}
                 onKeyDown={(event) => {
                   if (selectable(node) && (event.key === 'Enter' || event.key === ' ')) {
