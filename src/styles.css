@@ -13,3 +13,18 @@
 .reset-button:disabled{opacity:.42;cursor:not-allowed}.reset-button:disabled:hover{border-color:var(--line);background:rgba(255,255,255,.02);color:#c1cada}
 .hazard-controls{display:flex;flex-direction:column;gap:12px;margin-top:16px;padding-top:15px;border-top:1px solid var(--line)}
 .hazard-group{display:flex;flex-direction:column;gap:7px}.hazard-option{display:flex;align-items:center;gap:8px;color:#aeb9ca;font-size:12px;cursor:pointer}.hazard-option input{accent-color:var(--accent)}.hazard-option:hover{color:var(--text)}
+
+/* Step 5 UI polish: quick state transitions without delaying interaction. */
+html,body,#root{max-width:100%;overflow-x:hidden}
+button,.language-toggle,.reset-button,.primary-button,.upload-zone,.hazard-option,.start-picker select{transition:border-color .16s ease,background-color .16s ease,color .16s ease,opacity .16s ease,box-shadow .16s ease,transform .16s ease}
+.primary-button:hover:not(:disabled),.reset-button:hover:not(:disabled),.language-toggle:hover{transform:translateY(-1px)}
+.graph-node .node-shape,.graph-node .node-halo{transition:stroke .16s ease,stroke-width .16s ease,fill .16s ease,opacity .16s ease}
+.graph-node.selectable:hover .node-shape{transform-box:fill-box;transform-origin:center;transform:scale(1.06)}
+.edge line,.edge-cost rect,.edge-cost text{transition:stroke .16s ease,stroke-width .16s ease,fill .16s ease,opacity .16s ease,filter .16s ease}
+.route-result,.route-empty,.route-card .neutral-chip{animation:route-update .18s ease both}
+.hazard-option:has(input:checked){color:#d8e5ef}
+.hazard-option input{transition:filter .16s ease}
+.hazard-option:has(input:checked) input{filter:brightness(1.12)}
+@keyframes route-update{from{opacity:.72;transform:translateY(2px)}to{opacity:1;transform:translateY(0)}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+@media (max-width:700px){.topbar{width:100%;overflow:hidden}.header-meta{max-width:52vw}.building-slot{max-width:100%}.building-name{max-width:100%}.header-actions{flex-shrink:0}.map-card{width:100%;min-width:0}.panel-card{min-width:0}.hazard-option span{min-width:0;overflow-wrap:anywhere}.start-picker select{max-width:100%}}
