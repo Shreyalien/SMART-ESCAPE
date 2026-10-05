@@ -14,7 +14,7 @@
 
 - **Full Name:** Shreya Golder  
 - **Registration Number:** `251-15-467`  
-- **Institutional Email:** `251-15-467@diu.edu.bd`  
+- **Final Commit ID:** `3152a74421b068c22789f257a070f3f33ceef12a` (`3152a74`)  
 - **Repository URL:** [https://github.com/Shreyalien/SMART-ESCAPE_MOCK_VIBE_CODING](https://github.com/Shreyalien/SMART-ESCAPE_MOCK_VIBE_CODING)  
 - **Live Deployment Link:** [https://shreyalien.github.io/SMART-ESCAPE_MOCK_VIBE_CODING/](https://shreyalien.github.io/SMART-ESCAPE_MOCK_VIBE_CODING/)  
 
