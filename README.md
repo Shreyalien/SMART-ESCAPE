@@ -20,13 +20,15 @@
 
 ---
 
-## 📸 Screenshots
+## 📸 Required Route Screenshots
+
+The evacuation simulator screenshots demonstrate the required baseline route and dynamic hazard rerouting states:
 
 ### 1. Baseline Route (`R1 → E1`, Cost: 7)
-![Baseline Route](screenshots/baseline_route.png)
+![Baseline Route](screenshots/baseline-route.png)
 
 ### 2. Rerouting After Blocking C2 (`R1 → E2`, Cost: 11)
-![Rerouting After C2 Blocked](screenshots/rerouting_after_c2_blocked.png)
+![Rerouting After C2 Blocked](screenshots/reroute-after-c2-blocked.png)
 
 ---
 
